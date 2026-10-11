@@ -77,4 +77,32 @@
     el.addEventListener('click', function () { openLb(el.getAttribute('data-full')); });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLb(el.getAttribute('data-full')); } });
   });
+
+  /* Menu / Works: 横スライド(矢印・ドット・スワイプ) */
+  document.querySelectorAll('.hs').forEach(function (hs) {
+    var wrap = document.createElement('div'); wrap.className = 'hs-wrap';
+    hs.parentNode.insertBefore(wrap, hs); wrap.appendChild(hs);
+    var kids = [].slice.call(hs.children);
+    var p = document.createElement('button'); p.className = 'hs-btn p'; p.setAttribute('aria-label', '前へ'); p.textContent = '‹';
+    var nx = document.createElement('button'); nx.className = 'hs-btn n'; nx.setAttribute('aria-label', '次へ'); nx.textContent = '›';
+    var dots = document.createElement('div'); dots.className = 'hs-dots';
+    kids.forEach(function (k, i) {
+      var d = document.createElement('i');
+      d.addEventListener('click', function () { hs.scrollTo({ left: k.offsetLeft - hs.offsetLeft, behavior: 'smooth' }); });
+      dots.appendChild(d);
+    });
+    wrap.appendChild(p); wrap.appendChild(nx); wrap.parentNode.insertBefore(dots, wrap.nextSibling);
+    function step() { return kids[0].getBoundingClientRect().width + parseFloat(getComputedStyle(hs).columnGap || 22); }
+    p.addEventListener('click', function () { hs.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    nx.addEventListener('click', function () { hs.scrollBy({ left: step(), behavior: 'smooth' }); });
+    function upd() {
+      var idx = 0, best = 1e9;
+      kids.forEach(function (k, i) { var d = Math.abs(k.offsetLeft - hs.offsetLeft - hs.scrollLeft); if (d < best) { best = d; idx = i; } });
+      [].forEach.call(dots.children, function (d, i) { d.classList.toggle('on', i === idx); });
+      var can = hs.scrollWidth > hs.clientWidth + 4; dots.style.display = can ? '' : 'none'; p.style.display = nx.style.display = can ? '' : 'none';
+      p.disabled = hs.scrollLeft < 4; nx.disabled = hs.scrollLeft + hs.clientWidth >= hs.scrollWidth - 4;
+    }
+    hs.addEventListener('scroll', function () { window.requestAnimationFrame(upd); });
+    window.addEventListener('resize', upd); upd();
+  });
 })();
