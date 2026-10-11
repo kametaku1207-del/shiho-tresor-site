@@ -212,3 +212,9 @@ blockquote cite{display:block;margin-top:12px;font-style:normal;font-size:11px;c
 .lb img{max-width:min(92vw,900px);max-height:88vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
 @media (min-width:761px){.qr{display:block}}
 @media (max-width:760px){.qr{display:none}.voices{grid-template-columns:1fr}.nav-cta a{display:inline-block;margin-top:12px;border-bottom:0!important}}
+/* --- 見出しを目立たせる(v4) --- */
+.stitch{background:repeating-linear-gradient(118deg,#8f2442 0 1.6px,#d0566f 1.6px 3.2px);-webkit-background-clip:text;background-clip:text;
+  filter:drop-shadow(0 1px 0 #fff) drop-shadow(0 2px 0 rgba(255,205,215,.95)) drop-shadow(0 4px 3px rgba(110,25,50,.32))}
+.sec-head .en{font-size:clamp(46px,8vw,60px)}
+.sec-head h2{display:inline-block;margin-top:10px;padding:3px 20px;border:1px dashed var(--rose);border-radius:999px;background:#fff;color:var(--rose-d);font-size:13px}
+.logo{filter:none}
