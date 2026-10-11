@@ -218,3 +218,6 @@ blockquote cite{display:block;margin-top:12px;font-style:normal;font-size:11px;c
 .sec-head .en{font-size:clamp(46px,8vw,60px)}
 .sec-head h2{display:inline-block;margin-top:10px;padding:3px 20px;border:1px dashed var(--rose);border-radius:999px;background:#fff;color:var(--rose-d);font-size:13px}
 .logo{filter:none}
+/* --- v5: 縞をやめて、なめらかな糸の光沢に --- */
+.stitch{background:linear-gradient(180deg,#c9566f 0%,#a63552 55%,#8f2442 100%);-webkit-background-clip:text;background-clip:text;
+  filter:drop-shadow(0 1px 0 rgba(255,255,255,.8)) drop-shadow(0 2px 2px rgba(110,25,50,.28))}
