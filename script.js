@@ -62,4 +62,19 @@
       }
     }).catch(function () {}).then(function () { if (--pending === 0) setupSlider(); });
   });
+
+  /* 作品の拡大表示(lightbox) */
+  function openLb(src) {
+    var o = document.createElement('div'); o.className = 'lb'; o.setAttribute('role', 'dialog');
+    var im = document.createElement('img'); im.src = src; im.alt = '';
+    o.appendChild(im);
+    function close() { o.remove(); document.removeEventListener('keydown', k); }
+    function k(e) { if (e.key === 'Escape') close(); }
+    o.addEventListener('click', close); document.addEventListener('keydown', k);
+    document.body.appendChild(o);
+  }
+  document.querySelectorAll('[data-full]').forEach(function (el) {
+    el.addEventListener('click', function () { openLb(el.getAttribute('data-full')); });
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLb(el.getAttribute('data-full')); } });
+  });
 })();
